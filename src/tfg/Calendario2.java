@@ -11,9 +11,9 @@ import java.text.SimpleDateFormat;
  * @author Imad
  */
 public class Calendario2 extends javax.swing.JFrame {
- private Datos_reserva datos;
+ private Añadir_reserva datos;
     
-   public Calendario2(Datos_reserva datos) {
+   public Calendario2(Añadir_reserva datos) {
         initComponents();
         this.datos = datos;
         this.setLocationRelativeTo(this);
@@ -51,7 +51,7 @@ public class Calendario2 extends javax.swing.JFrame {
 
     private void jCalendar2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendar2PropertyChange
       if(evt.getOldValue() !=null){
-        SimpleDateFormat f1 = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat f1 = new SimpleDateFormat("yyyy-MM-dd");
         String fecha = f1.format(jCalendar2.getCalendar().getTime());
         datos.setFechaDevolucion(fecha);
          setVisible(false);
@@ -66,7 +66,7 @@ public class Calendario2 extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
 //                new Calendario2().setVisible(true);
-                   Datos_reserva datosReserva = new Datos_reserva();
+                   Añadir_reserva datosReserva = new Añadir_reserva();
             Calendario2 calendario2 = new Calendario2(datosReserva);
             calendario2.setVisible(true);
                

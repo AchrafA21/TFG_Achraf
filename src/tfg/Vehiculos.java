@@ -87,7 +87,7 @@ public class Vehiculos extends javax.swing.JFrame {
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, -1, -1));
 
         jLabel13.setFont(new java.awt.Font("Georgia", 1, 14)); // NOI18N
-        jLabel13.setText("Golf VW");
+        jLabel13.setText("Golf GTD");
         jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 250, -1, 27));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BMW-X1_detalles.PNG"))); // NOI18N
@@ -264,7 +264,7 @@ public class Vehiculos extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        Datos_reserva d = new Datos_reserva();
+        Añadir_reserva d = new Añadir_reserva();
         d.setVisible(true);
         d.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 //        d.setSize(680, 675);
@@ -301,19 +301,19 @@ public class Vehiculos extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-          Datos_reserva q = new Datos_reserva();
+          Añadir_reserva q = new Añadir_reserva();
         q.setVisible(true);
         q.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-         Datos_reserva l = new Datos_reserva();
+         Añadir_reserva l = new Añadir_reserva();
         l.setVisible(true);
         l.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-          Datos_reserva r = new Datos_reserva();
+          Añadir_reserva r = new Añadir_reserva();
         r.setVisible(true);
         r.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_jButton12ActionPerformed

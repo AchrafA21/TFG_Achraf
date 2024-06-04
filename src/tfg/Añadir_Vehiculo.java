@@ -28,72 +28,85 @@ public class Añadir_Vehiculo extends javax.swing.JFrame {
         initComponents();
          this.setLocationRelativeTo(this);
     }
-
- public void InsertarVehiculo() {
-    try {
-        // Verificar que todos los campos estén llenos
-        if (!jTextField1.getText().isEmpty() &&
-            !jTextField2.getText().isEmpty() &&
-            !jTextField3.getText().isEmpty() &&
-            !jTextField4.getText().isEmpty() &&
-            !jTextField5.getText().isEmpty() &&
-            !jTextField6.getText().isEmpty() &&
-            !jTextField7.getText().isEmpty() &&
-            !jTextField8.getText().isEmpty()) {
-            
-            // Obtener el id del modelo a través del nombre
-            int idModelo = obtenerIdModeloPorNombre(jTextField2.getText());
-            if (idModelo == -1) {
-                JOptionPane.showMessageDialog(null, "Modelo no encontrado.");
-                return;
-            }
-            
-            // Consulta SQL para insertar datos en la tabla
-            String sql = "INSERT INTO vehiculos (nombre, año_fabricación, capacidad, conbustible, transmision, precio_dia, precio_mes, id_modelo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-            conet = con1.getConnection();
-            
-            // Crear un PreparedStatement para ejecutar la consulta SQL
-            PreparedStatement statement = conet.prepareStatement(sql);
-            
-            // Asignar valores a los parámetros de la consulta
-            statement.setString(1, jTextField1.getText()); // nombre
-            statement.setInt(2, Integer.parseInt(jTextField3.getText())); // año_fabricación
-            statement.setInt(3, Integer.parseInt(jTextField4.getText())); // capacidad
-            statement.setString(4, jTextField5.getText()); // conbustible
-            statement.setString(5, jTextField7.getText()); // transmision
-            statement.setInt(6, Integer.parseInt(jTextField6.getText())); // precio_dia
-            statement.setInt(7, Integer.parseInt(jTextField8.getText())); // precio_mes
-            statement.setInt(8, idModelo); // id_modelo
-            
-            // Ejecutar la consulta
-            statement.executeUpdate();
-            
-            // Limpiar campos de texto
-            jTextField1.setText("");
-            jTextField2.setText("");
-            jTextField3.setText("");
-            jTextField4.setText("");
-            jTextField5.setText("");
-            jTextField6.setText("");
-            jTextField7.setText("");
-            jTextField8.setText("");
-            
-            // Mostrar mensaje de éxito
-            JOptionPane.showMessageDialog(null, "Vehículo agregado con éxito.");
-        } else {
-            // Mostrar mensaje de error si algún campo está vacío
-            JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos.");
-        }
-    } catch (SQLException e) {
-        // Manejo de excepciones SQL
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(null, "Error al agregar el vehículo: " + e.getMessage());
-    } catch (NumberFormatException e) {
-        // Manejo de excepciones de formato numérico
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(null, "Por favor, ingrese valores numéricos válidos en los campos correspondientes.");
+    
+    public Añadir_Vehiculo(String nombre, String modelo, int añoFabricacion, int capacidad, String conbustible, String transmision, int precioDia, int precioMes) {
+         initComponents();
+         this.setLocationRelativeTo(this);
+        jTextField1.setText(nombre);
+        jTextField2.setText(modelo);
+        jTextField3.setText(String.valueOf(añoFabricacion));
+        jTextField4.setText(String.valueOf(capacidad));
+        jTextField5.setText(conbustible);
+        jTextField6.setText(transmision);
+        jTextField7.setText(String.valueOf(precioDia));
+        jTextField8.setText(String.valueOf(precioMes));
     }
-}
+
+// public void InsertarVehiculo() {
+//    try {
+//        // Verificar que todos los campos estén llenos
+//        if (!jTextField1.getText().isEmpty() &&
+//            !jTextField2.getText().isEmpty() &&
+//            !jTextField3.getText().isEmpty() &&
+//            !jTextField4.getText().isEmpty() &&
+//            !jTextField5.getText().isEmpty() &&
+//            !jTextField6.getText().isEmpty() &&
+//            !jTextField7.getText().isEmpty() &&
+//            !jTextField8.getText().isEmpty()) {
+//            
+//            // Obtener el id del modelo a través del nombre
+//            int idModelo = obtenerIdModeloPorNombre(jTextField2.getText());
+//            if (idModelo == -1) {
+//                JOptionPane.showMessageDialog(null, "Modelo no encontrado.");
+//                return;
+//            }
+//            
+//            // Consulta SQL para insertar datos en la tabla
+//            String sql = "INSERT INTO vehiculos (nombre, año_fabricación, capacidad, conbustible, transmision, precio_dia, precio_mes, id_modelo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+//            conet = con1.getConnection();
+//            
+//            // Crear un PreparedStatement para ejecutar la consulta SQL
+//            PreparedStatement statement = conet.prepareStatement(sql);
+//            
+//            // Asignar valores a los parámetros de la consulta
+//            statement.setString(1, jTextField1.getText()); // nombre
+//            statement.setInt(2, Integer.parseInt(jTextField3.getText())); // año_fabricación
+//            statement.setInt(3, Integer.parseInt(jTextField4.getText())); // capacidad
+//            statement.setString(4, jTextField5.getText()); // conbustible
+//            statement.setString(5, jTextField7.getText()); // transmision
+//            statement.setInt(6, Integer.parseInt(jTextField6.getText())); // precio_dia
+//            statement.setInt(7, Integer.parseInt(jTextField8.getText())); // precio_mes
+//            statement.setInt(8, idModelo); // id_modelo
+//            
+//            // Ejecutar la consulta
+//            statement.executeUpdate();
+//            
+//            // Limpiar campos de texto
+//            jTextField1.setText("");
+//            jTextField2.setText("");
+//            jTextField3.setText("");
+//            jTextField4.setText("");
+//            jTextField5.setText("");
+//            jTextField6.setText("");
+//            jTextField7.setText("");
+//            jTextField8.setText("");
+//            
+//            // Mostrar mensaje de éxito
+//            JOptionPane.showMessageDialog(null, "Vehículo agregado con éxito.");
+//        } else {
+//            // Mostrar mensaje de error si algún campo está vacío
+//            JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos.");
+//        }
+//    } catch (SQLException e) {
+//        // Manejo de excepciones SQL
+//        e.printStackTrace();
+//        JOptionPane.showMessageDialog(null, "Error al agregar el vehículo: " + e.getMessage());
+//    } catch (NumberFormatException e) {
+//        // Manejo de excepciones de formato numérico
+//        e.printStackTrace();
+//        JOptionPane.showMessageDialog(null, "Por favor, ingrese valores numéricos válidos en los campos correspondientes.");
+//    }
+//}
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -180,9 +193,101 @@ public class Añadir_Vehiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        InsertarVehiculo();
+        insertarOModificarVehiculo();
     }//GEN-LAST:event_jButton1ActionPerformed
+//=============================================================================
+     public void insertarOModificarVehiculo() {
+        try {
+            // Verificar que todos los campos estén llenos
+            if (!jTextField1.getText().isEmpty() &&
+                !jTextField2.getText().isEmpty() &&
+                !jTextField3.getText().isEmpty() &&
+                !jTextField4.getText().isEmpty() &&
+                !jTextField5.getText().isEmpty() &&
+                !jTextField6.getText().isEmpty() &&
+                !jTextField7.getText().isEmpty() &&
+                !jTextField8.getText().isEmpty()) {
 
+                // Obtener el id del modelo a través del nombre
+                int idModelo = obtenerIdModeloPorNombre(jTextField2.getText());
+                if (idModelo == -1) {
+                    JOptionPane.showMessageDialog(null, "Modelo no encontrado.");
+                    return;
+                }
+
+                String nombreVehiculo = jTextField1.getText();
+                int añoFabricacion = Integer.parseInt(jTextField3.getText());
+                int capacidad = Integer.parseInt(jTextField4.getText());
+                String conbustible = jTextField5.getText();
+                String transmision = jTextField6.getText();
+                int precioDia = Integer.parseInt(jTextField7.getText());
+                int precioMes = Integer.parseInt(jTextField8.getText());
+
+                // Consulta SQL para verificar si el vehículo ya existe
+                String queryCheck = "SELECT COUNT(*) FROM vehiculos WHERE nombre = ? AND id_modelo = ?";
+                conet = con1.getConnection();
+                PreparedStatement checkStmt = conet.prepareStatement(queryCheck);
+                checkStmt.setString(1, nombreVehiculo);
+                checkStmt.setInt(2, idModelo);
+
+                ResultSet rs = checkStmt.executeQuery();
+                rs.next();
+                int count = rs.getInt(1);
+
+                if (count > 0) {
+                    // Si existe, actualiza el registro
+                    String sqlUpdate = "UPDATE vehiculos SET año_fabricación = ?, capacidad = ?, conbustible = ?, transmision = ?, precio_dia = ?, precio_mes = ? WHERE nombre = ? AND id_modelo = ?";
+                    PreparedStatement updateStmt = conet.prepareStatement(sqlUpdate);
+                    updateStmt.setInt(1, añoFabricacion);
+                    updateStmt.setInt(2, capacidad);
+                    updateStmt.setString(3, conbustible);
+                    updateStmt.setString(4, transmision);
+                    updateStmt.setInt(5, precioDia);
+                    updateStmt.setInt(6, precioMes);
+                    updateStmt.setString(7, nombreVehiculo);
+                    updateStmt.setInt(8, idModelo);
+                    updateStmt.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Vehículo actualizado con éxito.");
+                } else {
+                    // Si no existe, inserta un nuevo registro
+                    String sqlInsert = "INSERT INTO vehiculos (nombre, año_fabricación, capacidad, conbustible, transmision, precio_dia, precio_mes, id_modelo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                    PreparedStatement insertStmt = conet.prepareStatement(sqlInsert);
+                    insertStmt.setString(1, nombreVehiculo);
+                    insertStmt.setInt(2, añoFabricacion);
+                    insertStmt.setInt(3, capacidad);
+                    insertStmt.setString(4, conbustible);
+                    insertStmt.setString(5, transmision);
+                    insertStmt.setInt(6, precioDia);
+                    insertStmt.setInt(7, precioMes);
+                    insertStmt.setInt(8, idModelo);
+                    insertStmt.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Vehículo agregado con éxito.");
+                }
+
+                // Limpiar campos de texto
+                jTextField1.setText("");
+                jTextField2.setText("");
+                jTextField3.setText("");
+                jTextField4.setText("");
+                jTextField5.setText("");
+                jTextField6.setText("");
+                jTextField7.setText("");
+                jTextField8.setText("");
+            } else {
+                // Mostrar mensaje de error si algún campo está vacío
+                JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos.");
+            }
+        } catch (SQLException e) {
+            // Manejo de excepciones SQL
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al agregar el vehículo: " + e.getMessage());
+        } catch (NumberFormatException e) {
+            // Manejo de excepciones de formato numérico
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese valores numéricos válidos en los campos correspondientes.");
+        }
+    }
+//=============================================================================
     private int obtenerIdModeloPorNombre(String nombreModelo) {
     int idModelo = -1;
     

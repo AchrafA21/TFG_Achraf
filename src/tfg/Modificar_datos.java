@@ -29,6 +29,7 @@ public class Modificar_datos extends javax.swing.JFrame {
    ResultSet rs;
     public Modificar_datos() {
         initComponents();
+        this.setLocationRelativeTo(this);
     }
 
    
@@ -56,22 +57,22 @@ public class Modificar_datos extends javax.swing.JFrame {
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 520, 190, 40));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Config_User.png"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 670));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 640));
 
         jTextField1.setBorder(null);
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 200, 280, 20));
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 184, 280, -1));
 
         jTextField2.setBorder(null);
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 252, 280, 20));
+        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 242, 280, 20));
 
         jTextField3.setBorder(null);
-        getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 320, 280, 20));
+        getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 300, 280, 20));
 
         jTextField4.setBorder(null);
-        getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 380, 280, 20));
+        getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 370, 280, 20));
 
         jPasswordField1.setBorder(null);
-        getContentPane().add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 450, 280, 20));
+        getContentPane().add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 440, 280, 20));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

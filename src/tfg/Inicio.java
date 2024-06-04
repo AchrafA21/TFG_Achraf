@@ -11,7 +11,13 @@ import  java.sql.Connection;
 import  java.sql.Statement;
 import  java.sql.ResultSet;
 import Config.Conexion;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.SwingUtilities;
 /**
  *
  * @author Imad
@@ -25,12 +31,22 @@ public class Inicio extends javax.swing.JFrame {
     public Inicio() {
         initComponents();
         this.setLocationRelativeTo(this);
+//        jTextField1.setText("AntonioR@gmail.com");
+//        jPasswordField1.setText("antonioJ@2021");
+        
+        
         jTextField1.setText("carlos@gmail.com");
         jPasswordField1.setText("secreta789");
+
 //         jTextField1.setText("MarcosGzl@gmail.com");
-//        jPasswordField1.setText("j2992akskmnza:;@");
+//        jPasswordField1.setText("Wb3¿xdZA6");
         
+//         jTextField1.setText("AnaMart@gmail.com");
+//        jPasswordField1.setText("Ss9v91XG");
         
+//        
+//         jTextField1.setText("LauraG@gmail.com");
+//        jPasswordField1.setText("Laura34*pass");
     }
 
 //   private void acceder() {
@@ -87,6 +103,7 @@ public class Inicio extends javax.swing.JFrame {
             boolean accesoConcedido = false;
             String tipoUsuario = null;
              String nombreUsuario = null;
+             String nombreUsuario1=null;
 
             // Verificar en la tabla trabajadores
             try (PreparedStatement statementTrabajador = conet.prepareStatement(sqlTrabajador)) {
@@ -114,6 +131,8 @@ public class Inicio extends javax.swing.JFrame {
                             accesoConcedido = true;
                             tipoUsuario = "cliente";
                             nombreUsuario = resultSet.getString("nombre");
+                            nombreUsuario1 = resultSet.getString("nombre");
+                            System.out.println(nombreUsuario);
                         }
                     }
                 }
@@ -127,9 +146,13 @@ public class Inicio extends javax.swing.JFrame {
                     g.setNombreUsuario(nombreUsuario);
                     g.setVisible(true);
                 } else if ("cliente".equals(tipoUsuario)) {
-                    Principal s = new Principal();
-                    //s.setNombreUsuario(nombreUsuario);
-                    s.setVisible(true);
+                    ClientesPanel m = new ClientesPanel();
+//                    Reservas_Cliente k = new Reservas_Cliente();
+                    m.setNombreUsuario(nombreUsuario);
+                   
+                    m.setVisible(true);
+                    
+                  
                 }
             } else {
                 // Si no se encuentra ningún registro, las credenciales son incorrectas

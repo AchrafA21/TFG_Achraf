@@ -14,6 +14,8 @@ import javax.swing.JOptionPane;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Calendar;
+import java.util.Random;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -30,7 +32,20 @@ public class Añadir_Cliente extends javax.swing.JFrame {
     public Añadir_Cliente() {
         initComponents();
     }
-
+    
+public Añadir_Cliente(String nombre, String apellido, String correo, String direccion, String telefono, String ciudad, int edad, String sexo) {
+        initComponents();
+        
+        
+         jTextField1.setText(nombre);
+        jTextField2.setText(apellido);
+        jTextField3.setText(correo);
+        jTextField4.setText(direccion);
+        jTextField5.setText(telefono);
+        jTextField7.setText(ciudad);
+        jTextField6.setText(String.valueOf(edad));
+        jComboBox1.setSelectedItem(sexo);
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -108,63 +123,175 @@ public class Añadir_Cliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Insertar();
+        insertarOModificarCliente();
     }//GEN-LAST:event_jButton1ActionPerformed
+//=======================================================================
+    private String generarContraseña() {
+        String mayusculas = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String minusculas = "abcdefghijklmnopqrstuvwxyz";
+        String numeros = "0123456789";
+        String caracteres="@#-?¿!¡+*~$";
+        String todos = mayusculas + minusculas + numeros+caracteres;
+        Random random = new Random();
+        StringBuilder contraseña = new StringBuilder(8);
+        
+        // Asegurarse de que haya al menos una letra mayúscula, una minúscula y un número
+        contraseña.append(mayusculas.charAt(random.nextInt(mayusculas.length())));
+        contraseña.append(minusculas.charAt(random.nextInt(minusculas.length())));
+        contraseña.append(numeros.charAt(random.nextInt(numeros.length())));
+        contraseña.append(caracteres.charAt(random.nextInt(caracteres.length())));
+        // Completar los caracteres restantes
+        for (int i = 3; i < 8; i++) {
+            contraseña.append(todos.charAt(random.nextInt(todos.length())));
+        }
+        
+        return contraseña.toString();
+    }
 
-    public void Insertar() {
+    private Date generarFechaNacimiento(int edad) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.YEAR, -edad); // Restar los años según la edad
+        return calendar.getTime();
+    }
+ //====================================================================   
+//    public void Insertar() {
+//        try {
+//            // Verificar que todos los campos estén llenos
+//            if (jComboBox1.getSelectedItem() != null &&
+//                !jTextField1.getText().isEmpty() &&
+//                !jTextField2.getText().isEmpty() &&
+//                !jTextField3.getText().isEmpty() &&
+//                !jTextField4.getText().isEmpty() &&
+//                !jTextField5.getText().isEmpty() &&
+//                !jTextField6.getText().isEmpty() &&
+//                !jTextField7.getText().isEmpty()) {
+//                
+//                // Consulta SQL para insertar datos en la tabla
+//                String sql = "INSERT INTO alquiler_clientes (nombre, apellido, correo, direccion, telefono, ciudad, edad, sexo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+//                conet=con1.getConnection();
+//                // Crear un PreparedStatement para ejecutar la consulta SQL
+//                PreparedStatement statement = conet.prepareStatement(sql);
+//                
+//                // Asignar valores a los parámetros de la consulta
+//                statement.setString(1, jTextField1.getText()); // nombre
+//                statement.setString(2, jTextField2.getText()); // apellido
+//                statement.setString(3, jTextField3.getText()); // correo
+//                statement.setString(4, jTextField4.getText()); // direccion
+//                statement.setString(5, jTextField5.getText()); // telefono
+//                statement.setString(6, jTextField7.getText()); // ciudad
+//                statement.setString(7, jTextField6.getText()); // edad
+//                
+//                
+//                statement.setString(8, (String) jComboBox1.getSelectedItem()); // sexo
+//                
+//                // Ejecutar la consulta
+//                statement.executeUpdate();
+//                 jTextField1.setText("");
+//                jTextField2.setText("");
+//                jTextField3.setText("");
+//                jTextField4.setText("");
+//                jTextField5.setText("");
+//                jTextField6.setText("");
+//                jTextField7.setText("");
+//                jComboBox1.removeAllItems();
+//                
+//                // Mostrar mensaje de éxito
+//                JOptionPane.showMessageDialog(null, "Cliente agregado con éxito.");
+//            } else {
+//                // Mostrar mensaje de error si algún campo está vacío
+//                JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos.");
+//            }
+//        } catch (Exception  e) {
+//            // Manejo de excepciones
+//            e.printStackTrace();
+//            JOptionPane.showMessageDialog(null, "Error al agregar el cliente.");
+//        }
+//    }
+//==============================================================================
+     public void insertarOModificarCliente() {
         try {
-            // Verificar que todos los campos estén llenos
-            if (jComboBox1.getSelectedItem() != null &&
-                !jTextField1.getText().isEmpty() &&
+            if (!jTextField1.getText().isEmpty() &&
                 !jTextField2.getText().isEmpty() &&
                 !jTextField3.getText().isEmpty() &&
                 !jTextField4.getText().isEmpty() &&
                 !jTextField5.getText().isEmpty() &&
                 !jTextField6.getText().isEmpty() &&
                 !jTextField7.getText().isEmpty()) {
-                
-                // Consulta SQL para insertar datos en la tabla
-                String sql = "INSERT INTO alquiler_clientes (nombre, apellido, correo, direccion, telefono, ciudad, edad, sexo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-                conet=con1.getConnection();
-                // Crear un PreparedStatement para ejecutar la consulta SQL
-                PreparedStatement statement = conet.prepareStatement(sql);
-                
-                // Asignar valores a los parámetros de la consulta
-                statement.setString(1, jTextField1.getText()); // nombre
-                statement.setString(2, jTextField2.getText()); // apellido
-                statement.setString(3, jTextField3.getText()); // correo
-                statement.setString(4, jTextField4.getText()); // direccion
-                statement.setString(5, jTextField5.getText()); // telefono
-                statement.setString(6, jTextField7.getText()); // ciudad
-                statement.setString(7, jTextField6.getText()); // edad
-                
-                
-                statement.setString(8, (String) jComboBox1.getSelectedItem()); // sexo
-                
-                // Ejecutar la consulta
-                statement.executeUpdate();
-                 jTextField1.setText("");
+
+                String nombre = jTextField1.getText();
+                String apellido = jTextField2.getText();
+                String correo = jTextField3.getText();
+                String direccion = jTextField4.getText();
+                String telefono = jTextField5.getText();
+                String ciudad = jTextField7.getText();
+                int edad = Integer.parseInt(jTextField6.getText());
+                String sexo = (String) jComboBox1.getSelectedItem();
+                String contraseña = generarContraseña();
+                Date fechaNac = generarFechaNacimiento(edad);
+
+                // Verificar si el cliente ya existe
+                String queryCheck = "SELECT COUNT(*) FROM alquiler_clientes WHERE correo = ?";
+                conet = con1.getConnection();
+                PreparedStatement checkStmt = conet.prepareStatement(queryCheck);
+                checkStmt.setString(1, correo);
+
+                ResultSet rs = checkStmt.executeQuery();
+                rs.next();
+                int count = rs.getInt(1);
+
+                if (count > 0) {
+                    // Actualizar el registro existente
+                    String sqlUpdate = "UPDATE alquiler_clientes SET nombre = ?, apellido = ?, contraseña = ?, fecha_nac = ?, direccion = ?, telefono = ?, ciudad = ?, edad = ?, sexo = ? WHERE correo = ?";
+                    PreparedStatement updateStmt = conet.prepareStatement(sqlUpdate);
+                    updateStmt.setString(1, nombre);
+                    updateStmt.setString(2, apellido);
+                    updateStmt.setString(3, contraseña);
+                    updateStmt.setDate(4, new java.sql.Date(fechaNac.getTime()));
+                    updateStmt.setString(5, direccion);
+                    updateStmt.setString(6, telefono);
+                    updateStmt.setString(7, ciudad);
+                    updateStmt.setInt(8, edad);
+                    updateStmt.setString(9, sexo);
+                    updateStmt.setString(10, correo);
+                    updateStmt.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Cliente actualizado con éxito.");
+                } else {
+                    // Insertar un nuevo registro
+                    String sqlInsert = "INSERT INTO alquiler_clientes (nombre, apellido, correo, contraseña, fecha_nac, direccion, telefono, ciudad, edad, sexo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+                    PreparedStatement insertStmt = conet.prepareStatement(sqlInsert);
+                    insertStmt.setString(1, nombre);
+                    insertStmt.setString(2, apellido);
+                    insertStmt.setString(3, correo);
+                    insertStmt.setString(4, contraseña);
+                    insertStmt.setDate(5, new java.sql.Date(fechaNac.getTime()));
+                    insertStmt.setString(6, direccion);
+                    insertStmt.setString(7, telefono);
+                    insertStmt.setString(8, ciudad);
+                    insertStmt.setInt(9, edad);
+                    insertStmt.setString(10, sexo);
+                    insertStmt.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Cliente agregado con éxito.");
+                }
+
+                // Limpiar campos de texto
+                jTextField1.setText("");
                 jTextField2.setText("");
                 jTextField3.setText("");
                 jTextField4.setText("");
                 jTextField5.setText("");
                 jTextField6.setText("");
                 jTextField7.setText("");
-                jComboBox1.removeAllItems();
-                
-                // Mostrar mensaje de éxito
-                JOptionPane.showMessageDialog(null, "Cliente agregado con éxito.");
+              
+                jComboBox1.setSelectedItem(null);
+
             } else {
-                // Mostrar mensaje de error si algún campo está vacío
                 JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos.");
             }
-        } catch (Exception  e) {
-            // Manejo de excepciones
+        } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error al agregar el cliente.");
+            JOptionPane.showMessageDialog(null, "Error al agregar o actualizar el cliente: " + e.getMessage());
         }
     }
-
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

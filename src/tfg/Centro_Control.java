@@ -4,7 +4,12 @@
  */
 package tfg;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import javax.swing.JFrame;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -43,8 +48,7 @@ private String nombreUsuario;
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -116,6 +120,11 @@ private String nombreUsuario;
         jMenu2.add(jMenuItem7);
 
         jMenuItem10.setText("Gestion Vehiculos");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem10);
 
         jMenuItem9.setText("Añadir Modelo");
@@ -139,7 +148,7 @@ private String nombreUsuario;
         jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/calendar-check_icon-icons.com_56836.png"))); // NOI18N
         jMenu5.setText("Reservas");
 
-        jMenuItem8.setText("jMenuItem8");
+        jMenuItem8.setText("Gestión Reservas");
         jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem8ActionPerformed(evt);
@@ -147,22 +156,15 @@ private String nombreUsuario;
         });
         jMenu5.add(jMenuItem8);
 
-        jMenuBar1.add(jMenu5);
-
-        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ventas.png"))); // NOI18N
-        jMenu3.setText("Informes");
-        jMenu3.setPreferredSize(new java.awt.Dimension(100, 38));
-
-        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ventas2.png"))); // NOI18N
-        jMenuItem4.setText("Vehiculos");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem12.setText("Añadir reserva");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                jMenuItem12ActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem4);
+        jMenu5.add(jMenuItem12);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(jMenu5);
 
         jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/usuario.png"))); // NOI18N
         jMenu4.setText("Cerrar Sesion");
@@ -229,38 +231,63 @@ private String nombreUsuario;
 
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        Datos_vehiculos s = new Datos_vehiculos();
-        s.setVisible(true);
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
-
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
        Modificar_datos b = new Modificar_datos();
        b.setVisible(true);
+       b.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        Panel_Cliente l = new Panel_Cliente();
-        l.setVisible(true);
-        l.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setVisible(false);
+//       String rutaArchivoHTML = "C:/Users/Imad/Documents/NetBeansProjects/TFG/src/tfg/Panel_Cliente.html";
+//
+//    // Verifica si Desktop está soportado en el sistema actual
+//    if (Desktop.isDesktopSupported()) {
+//        Desktop desktop = Desktop.getDesktop();
+//        File archivoHTML = new File(rutaArchivoHTML);
+//        if (archivoHTML.exists()) {
+//            try {
+//                desktop.open(archivoHTML);
+//            } catch (IOException ex) {
+//                Logger.getLogger(Centro_Control.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        } else {
+//            System.out.println("El archivo HTML no existe.");
+//        }
+//    } else {
+//        System.out.println("El soporte de Desktop no está disponible en este sistema.");
+//    }
 
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-//        Prueba i = new Prueba();
-//        i.setVisible(true);
+        Datos_reserva i = new Datos_reserva();
+        i.setVisible(true);
+        i.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
         Añadir_Modelo p= new Añadir_Modelo();
+        p.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         p.setVisible(true);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
         Datos_Modelo g= new Datos_Modelo();
         g.setVisible(true);
+        g.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_jMenuItem11ActionPerformed
+
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+       Datos_vehiculos o= new Datos_vehiculos();
+       o.setVisible(true);
+       o.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
+
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+        Añadir_reserva f= new Añadir_reserva();
+        f.setVisible(true);
+       f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -302,16 +329,15 @@ private String nombreUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;

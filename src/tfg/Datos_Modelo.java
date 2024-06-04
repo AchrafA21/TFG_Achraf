@@ -5,9 +5,15 @@
 package tfg;
 
 import Config.Conexion;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -81,9 +87,14 @@ public class Datos_Modelo extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 40, 640, 130));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 750, 140));
 
         jButton1.setText("Editar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 250, 130, -1));
 
         jButton2.setText("Eliminar");
@@ -101,8 +112,45 @@ public class Datos_Modelo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
 eliminar();    }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+      editar();
+      
+    }//GEN-LAST:event_jButton1ActionPerformed
+//==========================================================================
+    
+    void editar() {
+        int filaSeleccionada = jTable1.getSelectedRow();
+        if (filaSeleccionada >= 0) {
+            String nombre = jTable1.getValueAt(filaSeleccionada, 0).toString();
+            String fechaTexto = jTable1.getValueAt(filaSeleccionada, 2).toString();
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+            Date fechaCreacion = null;
+            try {
+                fechaCreacion = formatoFecha.parse(fechaTexto);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Por favor, ingrese una fecha válida en el formato yyyy-MM-dd.");
+                return;
+            }
+            String nombreVehiculo = jTable1.getValueAt(filaSeleccionada, 1).toString();
+
+            Añadir_Modelo v = new Añadir_Modelo(nombre, fechaCreacion, nombreVehiculo);
+            v.setVisible(true);
+            v.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            v.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    Consultar();
+                }
+            });
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione un registro para editar");
+        }
+    }
+//==========================================================================    
    void eliminar() {
     int filaSeleccionada = jTable1.getSelectedRow();
     if (filaSeleccionada >= 0) {
@@ -125,6 +173,7 @@ eliminar();    }//GEN-LAST:event_jButton2ActionPerformed
 
                 // Actualizar la tabla después de la eliminación
                 ((DefaultTableModel) jTable1.getModel()).removeRow(filaSeleccionada);
+                 JOptionPane.showMessageDialog(null, "Modelo borrado correctamente");
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró el ID del modelo.");
             }

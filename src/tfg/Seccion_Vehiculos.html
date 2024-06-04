@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado de la Búsqueda</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .vehicles-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .vehicle-card {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: calc(33.33% - 20px);
+            text-align: center;
+        }
+        .vehicle-card img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .vehicle-card h3 {
+            margin-bottom: 10px;
+        }
+        .vehicle-card p {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Resultados de la Búsqueda</h2>
+    <div class="vehicles-container">
+        <div class="vehicle-card">
+            <img src="C:\Users\Imad\Documents\NetBeansProjects\TFG\src\Imagenes\Golf.png" alt="Vehículo 1">
+            <h3>Vehículo 1</h3>
+            <p>Marca: Marca del vehículo</p>
+            <p>Modelo: Modelo del vehículo</p>
+            <p>Precio por día: $XX</p>
+             <form action="" method="post">
+                <input type="hidden" name="vehicle_id" value="1">
+                <button type="submit">Reservar</button>
+            </form>
+        </div>
+        <div class="vehicle-card">
+            <img src="C:\Users\Imad\Documents\NetBeansProjects\TFG\src\Imagenes\BMW-X1.png" alt="Vehículo 2">
+            <h3>Vehículo 2</h3>
+            <p>Marca: Marca del vehículo</p>
+            <p>Modelo: Modelo del vehículo</p>
+            <p>Precio por día: $XX</p>
+            <button>Reservar</button>
+        </div>
+        <!-- Repite este bloque para cada vehículo -->
+    </div>
+</body>
+</html>
+

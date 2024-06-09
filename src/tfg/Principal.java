@@ -11,6 +11,8 @@ import  java.sql.Connection;
 import  java.sql.Statement;
 import  java.sql.ResultSet;
 import Config.Conexion;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
@@ -66,7 +68,7 @@ Conexion con1 = new Conexion();
         System.err.println("Error al insertar empleado: " + e.getMessage());
     }
 }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

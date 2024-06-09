@@ -30,7 +30,7 @@ public class DatosPersonales extends javax.swing.JFrame {
     public DatosPersonales(String nombreUsuario) {
         initComponents();
          this.nombreUsuario = nombreUsuario;
-        // Aquí puedes usar nombreUsuario para cargar los datos correspondientes desde la base de datos
+       
         cargarDatosUsuario(nombreUsuario);
     }
 
@@ -65,10 +65,10 @@ public class DatosPersonales extends javax.swing.JFrame {
             jTextField6.setText(direccion);
             jPasswordField1.setText(contraseña);
         } else {
-            // Si no se encuentra ningún usuario con el nombre proporcionado
+            
             JOptionPane.showMessageDialog(this, "No se encontraron datos para el usuario " + nombreUsuario, "Usuario no encontrado", JOptionPane.ERROR_MESSAGE);
             
-            // Limpiar los campos de texto
+         
             jTextField1.setText("");
             jTextField2.setText("");
             jTextField4.setText("");
@@ -77,11 +77,11 @@ public class DatosPersonales extends javax.swing.JFrame {
             jTextField6.setText("");
         }
         
-        // Cerrar recursos
+    
         resultSet.close();
         statement.close();
     } catch (Exception ex) {
-        // Manejar cualquier excepción que ocurra durante la ejecución de la consulta SQL
+        
         ex.printStackTrace();
     }
 }
@@ -141,11 +141,9 @@ public class DatosPersonales extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        actualizarDatos();
     }//GEN-LAST:event_jButton1ActionPerformed
-   void actualizarDatos() {
-        Connection conet = null;
+  void actualizarDatos() {
         try {
             // Obtener los valores de los campos de texto
-            String nombre = jTextField1.getText();
             String apellido = jTextField2.getText();
             Date fechaNacimiento = obtenerFecha(jTextField4.getText());
             String correo = jTextField3.getText();
@@ -154,39 +152,36 @@ public class DatosPersonales extends javax.swing.JFrame {
             String telefono = jTextField5.getText();
             String direccion = jTextField6.getText();
             
-            // Consulta SQL para actualizar datos en la tabla
-            String sql = "UPDATE alquiler_clientes SET nombre=?, apellido=?, correo=?, contraseña=?, fecha_nac=?, telefono=?, direccion=? WHERE nombre=?";
-             conet = con1.getConnection();
-        
-        // Crear un PreparedStatement para ejecutar la consulta SQL
-        PreparedStatement statement = conet.prepareStatement(sql);
-        
-        // Asignar valores a los parámetros de la consulta
-        statement.setString(1, nombre); // nombre
-        statement.setString(2, apellido); // apellido
-        statement.setString(3, correo); // correo
-        statement.setString(4, Contraseña); // contraseña
-        statement.setDate(5, new java.sql.Date(fechaNacimiento.getTime())); // fecha_nac
-        statement.setString(6, telefono); // telefono
-        statement.setString(7, direccion); // direccion
-        statement.setString(8, apellido); // apellido (para el WHERE)
-            
+            // Consulta SQL para actualizar los datos
+            String sql = "UPDATE alquiler_clientes SET apellido=?, correo=?, contraseña=?, fecha_nac=?, telefono=?, direccion=? WHERE correo=?";
+            conet = con1.getConnection();
+            PreparedStatement statement = conet.prepareStatement(sql);
+
+            // Asignar valores a los parámetros de la consulta
+            statement.setString(1, apellido); // apellido
+            statement.setString(2, correo); // correo
+            statement.setString(3, Contraseña); // contraseña
+            statement.setDate(4, new java.sql.Date(fechaNacimiento.getTime())); // fecha_nac
+            statement.setString(5, telefono); // telefono
+            statement.setString(6, direccion); // direccion
+            statement.setString(7, correo); // correo (para el WHERE)
+
             // Ejecutar la consulta
             int filasActualizadas = statement.executeUpdate();
-            
+
             if (filasActualizadas > 0) {
                 // Mostrar mensaje de éxito
-                JOptionPane.showMessageDialog(null, "Datos del trabajador actualizados correctamente.");
+                JOptionPane.showMessageDialog(null, "Datos del cliente actualizados correctamente.");
             } else {
-                // Mostrar mensaje de error si el trabajador no se encontró
-                JOptionPane.showMessageDialog(null, "No se encontró ningún trabajador con el apellido proporcionado.");
+                // Mostrar mensaje de error si el cliente no se encontró
+                JOptionPane.showMessageDialog(null, "No se encontró ningún cliente con el correo proporcionado.");
             }
         } catch (Exception e) {
             // Manejo de excepciones
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error al actualizar los datos del trabajador.");
+            JOptionPane.showMessageDialog(null, "Error al actualizar los datos del cliente.");
         }
-   }
+    }
     
     // Método para convertir una cadena de texto a una fecha
     private Date obtenerFecha(String fechaString) {

@@ -27,10 +27,56 @@ public class Modificar_datos extends javax.swing.JFrame {
    DefaultTableModel modelo;
    Statement st;
    ResultSet rs;
-    public Modificar_datos() {
+   private String nombreUsuario;
+    public Modificar_datos(String nombreUsuario) {
         initComponents();
         this.setLocationRelativeTo(this);
+        this.nombreUsuario = nombreUsuario;
+       
+        cargarDatosUsuario(nombreUsuario);
     }
+    
+    private void cargarDatosUsuario(String nombreUsuario) {
+        Connection conet = null;
+    PreparedStatement statement = null;
+    ResultSet resultSet = null;
+    try {
+        conet = con1.getConnection();
+        
+        String sql = "SELECT nombre, fecha_nac, correo, contraseña FROM trabajadores WHERE nombre = ?";
+        
+        statement = conet.prepareStatement(sql);
+        statement.setString(1, nombreUsuario);
+        
+        resultSet = statement.executeQuery();
+        
+        if (resultSet.next()) {
+            // Obtener los datos del usuario
+            String nombre = resultSet.getString("nombre");
+            String fechaNacimiento = resultSet.getString("fecha_nac");
+            String correo = resultSet.getString("correo");
+            String contraseña = resultSet.getString("contraseña");
+            
+            // Actualizar los campos de texto en el formulario
+            jTextField1.setText(nombre);
+            
+            // Formatear la fecha en el formato deseado (dd-MM-yyyy)
+//            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
+//            jTextField2.setText(formatoFecha.format(fechaNacimiento));
+            jTextField2.setText(fechaNacimiento);
+            jTextField3.setText(correo);
+            jPasswordField1.setText(contraseña);
+        } else {
+            JOptionPane.showMessageDialog(this, "No se encontraron datos para el usuario " + nombreUsuario, "Usuario no encontrado", JOptionPane.ERROR_MESSAGE);
+            jTextField1.setText("");
+            jTextField2.setText("");
+            jTextField3.setText("");
+            jPasswordField1.setText("");
+        }
+    } catch (Exception ex) {
+        ex.printStackTrace();
+    }
+}
 
    
     @SuppressWarnings("unchecked")
@@ -40,9 +86,8 @@ public class Modificar_datos extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
         jPasswordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -54,25 +99,22 @@ public class Modificar_datos extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 520, 190, 40));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 500, 190, 40));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Config_User.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Config_User1.png"))); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 640));
 
         jTextField1.setBorder(null);
         getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 184, 280, -1));
 
-        jTextField2.setBorder(null);
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 242, 280, 20));
-
         jTextField3.setBorder(null);
-        getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 300, 280, 20));
+        getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 350, 280, 20));
 
-        jTextField4.setBorder(null);
-        getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 370, 280, 20));
+        jTextField2.setBorder(null);
+        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 270, 280, 20));
 
         jPasswordField1.setBorder(null);
-        getContentPane().add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 440, 280, 20));
+        getContentPane().add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 440, 280, 10));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -84,49 +126,50 @@ public class Modificar_datos extends javax.swing.JFrame {
     
     
     public void actualizarDatos() {
+        Connection conet = null;
+    PreparedStatement statement = null;
         try {
-            // Obtener los valores de los campos de texto
-            String nombre = jTextField1.getText();
-            String apellido = jTextField2.getText();
-            Date fechaNacimiento = obtenerFecha(jTextField3.getText());
-            String correo = jTextField4.getText();
-            char[] passwordChars = jPasswordField1.getPassword();
-            String Contraseña = new String(passwordChars);
- 
-            
-            // Consulta SQL para actualizar datos en la tabla
-            String sql = "UPDATE trabajadores SET nombre=?, correo=?, contraseña=?, fecha_nac=? WHERE apellido=?";
-             conet=con1.getConnection();
-            // Crear un PreparedStatement para ejecutar la consulta SQL
-            PreparedStatement statement = conet.prepareStatement(sql);
-            
-            // Asignar valores a los parámetros de la consulta
-            statement.setString(1, nombre); // nombre
-            statement.setString(2, correo); // correo
-            statement.setString(3, Contraseña); // contraseña
-            statement.setDate(4, new java.sql.Date(fechaNacimiento.getTime())); // fecha_nac
-            statement.setString(5, apellido); // apellido
-            
-            // Ejecutar la consulta
-            int filasActualizadas = statement.executeUpdate();
-            
-            if (filasActualizadas > 0) {
-                // Mostrar mensaje de éxito
-                JOptionPane.showMessageDialog(null, "Datos del trabajador actualizados correctamente.");
-            } else {
-                // Mostrar mensaje de error si el trabajador no se encontró
-                JOptionPane.showMessageDialog(null, "No se encontró ningún trabajador con el apellido proporcionado.");
-            }
-        } catch (Exception e) {
-            // Manejo de excepciones
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error al actualizar los datos del trabajador.");
+        // Obtener los valores de los campos de texto
+        String nombre = jTextField1.getText();
+        String fechaNacimiento=jTextField2.getText();
+        String correo = jTextField3.getText();
+        char[] passwordChars = jPasswordField1.getPassword();
+        String Contraseña = new String(passwordChars);
+
+        // Consulta SQL para actualizar datos en la tabla
+        String sql = "UPDATE trabajadores SET nombre=?, contraseña=?, fecha_nac=? WHERE correo=?";
+        
+        conet = con1.getConnection();
+        
+        // Crear un PreparedStatement para ejecutar la consulta SQL
+        statement = conet.prepareStatement(sql);
+        
+        // Asignar valores a los parámetros de la consulta
+        statement.setString(1, nombre); // nombre
+        statement.setString(2, Contraseña); // contraseña
+        statement.setString(3, fechaNacimiento); // fecha_nac
+        statement.setString(4, correo); // correo
+        
+        // Ejecutar la consulta
+        int filasActualizadas = statement.executeUpdate();
+        
+        if (filasActualizadas > 0) {
+            // Mostrar mensaje de éxito
+            JOptionPane.showMessageDialog(null, "Datos del trabajador actualizados correctamente.");
+        } else {
+            // Mostrar mensaje de error si el trabajador no se encontró
+            JOptionPane.showMessageDialog(null, "No se encontró ningún trabajador con el correo proporcionado.");
         }
+    } catch (Exception e) {
+        // Manejo de excepciones
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al actualizar los datos del trabajador.");
+    }
     }
     private Date obtenerFecha(String fechaString) {
         try {
             // Formato de fecha esperado en la cadena
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             // Convertir la cadena en un objeto Date
             return dateFormat.parse(fechaString);
         } catch (ParseException e) {
@@ -167,7 +210,8 @@ public class Modificar_datos extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Modificar_datos().setVisible(true);
+                 String nombreUsuario = "usuario";
+               new  Modificar_datos(nombreUsuario).setVisible(true);
             }
         });
     }
@@ -179,6 +223,5 @@ public class Modificar_datos extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
 }

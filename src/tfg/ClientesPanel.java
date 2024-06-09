@@ -6,13 +6,16 @@ package tfg;
 
 import Config.Conexion;
 import java.sql.Connection;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.help.HelpBroker;
+import javax.help.HelpSet;
+import javax.help.HelpSetException;
+import javax.help.JHelp;
+import javax.swing.JFrame;
 
 /**
  *
@@ -33,16 +36,30 @@ private String nombreUsuario;
         this.setLocationRelativeTo(this);
         setNombreUsuario(nombreUsuario);
         
+         String AYUDA_HS = "conayuda/ayuda/helpset.hs";
+        try {
+         ClassLoader cl = getClass().getClassLoader();
+         HelpSet helpset = new HelpSet(cl, cl.getResource(AYUDA_HS));
+         HelpBroker hb = helpset.createHelpBroker();
+         JHelp jhelp = new JHelp(helpset);
+         //jhelp.setCurrentID("inicio");
+         hb.enableHelpOnButton(jButton7, "primero", helpset);
+
+        } catch (HelpSetException ex) {
+         System.err.println("Error al cargar la ayuda: " + ex);
+        }
+        
         
     }
 
     void setNombreUsuario(String nombreUsuario) {
         this.nombreUsuario = nombreUsuario;
-        // Actualizar el texto del JMenuItem con el nombre del usuario
         jLabel2.setText("Bienvenido " + nombreUsuario);
 //        System.out.println(nombreUsuario);
         
     }
+    
+    
     
    public  String getNombreUsuario() {
         return nombreUsuario;
@@ -60,6 +77,7 @@ private String nombreUsuario;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton7 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -71,6 +89,14 @@ private String nombreUsuario;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ayuda.png"))); // NOI18N
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 240, 40, 40));
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         jLabel2.setText("jLabel2");
@@ -169,13 +195,17 @@ private String nombreUsuario;
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         devolver_vehiculo();
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton7ActionPerformed
   void devolver_vehiculo() {
         int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de devolver el vehículo?", "Confirmación", JOptionPane.YES_NO_OPTION);
-
         if (confirmacion == JOptionPane.YES_OPTION) {
+            conet = con1.getConnection();
             try {
-                // Obtener el idCliente basado en el nombreUsuario
-                String queryIdCliente = "SELECT id FROM clientes WHERE nombre_usuario = ?";
+                
+                String queryIdCliente = "SELECT id FROM alquiler_clientes WHERE nombre = ?";
                 PreparedStatement statementIdCliente = conet.prepareStatement(queryIdCliente);
                 statementIdCliente.setString(1, nombreUsuario);
                 ResultSet resultSet = statementIdCliente.executeQuery();
@@ -183,7 +213,7 @@ private String nombreUsuario;
                 if (resultSet.next()) {
                     int idCliente = resultSet.getInt("id");
 
-                    // Eliminar los datos de la tabla reserva basados en el idCliente
+                   
                     String queryDelete = "DELETE FROM reserva WHERE id_cliente = ?";
                     PreparedStatement statementDelete = conet.prepareStatement(queryDelete);
                     statementDelete.setInt(1, idCliente);
@@ -246,6 +276,7 @@ private String nombreUsuario;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables

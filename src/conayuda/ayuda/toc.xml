@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<toc version="1.0">
+ <tocitem text="Principal" target="primero">
+ <tocitem text="Acerca De" target="acerca" />
+ <tocitem text="Manual de uso " target="Manual de uso " />
+ </tocitem>
+</toc>
+

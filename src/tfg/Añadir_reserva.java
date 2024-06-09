@@ -34,6 +34,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Random;
+import javax.swing.JFrame;
 
 
 public class Añadir_reserva extends javax.swing.JFrame {
@@ -176,6 +178,9 @@ public void guardarReserva() {
         String fechaDevolucion = jTextField6.getText();
         String nombreVehiculo = jTextField7.getText();
         String nombreModelo = jTextField8.getText();
+        Random rand = new Random();
+        int idtrabajador = rand.nextInt(9) + 1;
+        
 
         // Obtener el ID del cliente
         int idCliente = obtenerIdClientePorNombre(nombreCliente);
@@ -196,7 +201,7 @@ public void guardarReserva() {
 
         conet = con1.getConnection();
         
-        // Verificar si la reserva ya existe
+        
         String queryCheck = "SELECT COUNT(*) FROM reserva WHERE id_cliente = ? AND id_vehiculo = ? AND id_modelo = ? AND fecha_recogida = ? AND fecha_devolucion = ?";
         PreparedStatement checkStmt = conet.prepareStatement(queryCheck);
         checkStmt.setInt(1, idCliente);
@@ -210,30 +215,27 @@ public void guardarReserva() {
         int count = rs.getInt(1);
 
         if (count > 0) {
-            // Si la reserva existe, actualiza el registro
-            String sqlUpdate = "UPDATE reserva SET id_cliente = ?, id_vehiculo = ?, id_modelo = ?, fecha_recogida = ?, fecha_devolucion = ? WHERE id_cliente = ? AND id_vehiculo = ? AND id_modelo = ?";
+            
+            String sqlUpdate = "UPDATE reserva SET id_cliente = ?, id_vehiculo = ?, id_modelo = ?, fecha_recogida = ? , fecha_devolucion = ?  WHERE id_cliente = ? AND id_vehiculo = ? AND id_modelo = ? ";
             PreparedStatement updateStmt = conet.prepareStatement(sqlUpdate);
             updateStmt.setInt(1, idCliente);
             updateStmt.setInt(2, idVehiculo);
             updateStmt.setInt(3, idModelo);
             updateStmt.setDate(4, sqlFechaRecogida);
             updateStmt.setDate(5, sqlFechaDevolucion);
-            updateStmt.setInt(6, idCliente);
-            updateStmt.setInt(7, idVehiculo);
-            updateStmt.setInt(8, idModelo);
-//            updateStmt.setDate(9, sqlFechaRecogida);
-//            updateStmt.setDate(10, sqlFechaDevolucion);
+//            updateStmt.setInt(6, idtrabajador);
             updateStmt.executeUpdate();
             JOptionPane.showMessageDialog(this, "Reserva actualizada correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } else {
             // Si no existe, inserta un nuevo registro
-            String sqlInsert = "INSERT INTO reserva (id_cliente, id_vehiculo, id_modelo, fecha_recogida, fecha_devolucion) VALUES (?, ?, ?, ?, ?)";
+            String sqlInsert = "INSERT INTO reserva (id_cliente, id_vehiculo, id_modelo, fecha_recogida, fecha_devolucion, id_trabajador) VALUES (?, ?, ?, ?, ?,?)";
             PreparedStatement insertStmt = conet.prepareStatement(sqlInsert);
             insertStmt.setInt(1, idCliente);
             insertStmt.setInt(2, idVehiculo);
             insertStmt.setInt(3, idModelo);
             insertStmt.setDate(4, sqlFechaRecogida);
             insertStmt.setDate(5, sqlFechaDevolucion);
+            insertStmt.setInt(6, idtrabajador);
             insertStmt.executeUpdate();
             JOptionPane.showMessageDialog(this, "Reserva agregada correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -361,11 +363,13 @@ public void guardarReserva() {
     private void jTextField6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField6MouseClicked
         Calendario2 s = new Calendario2(this);
         s.setVisible(true);
+        s.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
     }//GEN-LAST:event_jTextField6MouseClicked
 
     private void jTextField5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField5MouseClicked
         Calendario d= new Calendario(this);
         d.setVisible(true);
+        d.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
     }//GEN-LAST:event_jTextField5MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

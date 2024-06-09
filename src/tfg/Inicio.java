@@ -34,12 +34,11 @@ public class Inicio extends javax.swing.JFrame {
 //        jTextField1.setText("AntonioR@gmail.com");
 //        jPasswordField1.setText("antonioJ@2021");
         
-        
+//        
         jTextField1.setText("carlos@gmail.com");
         jPasswordField1.setText("secreta789");
 
-//         jTextField1.setText("MarcosGzl@gmail.com");
-//        jPasswordField1.setText("Wb3¿xdZA6");
+    
         
 //         jTextField1.setText("AnaMart@gmail.com");
 //        jPasswordField1.setText("Ss9v91XG");
@@ -47,6 +46,9 @@ public class Inicio extends javax.swing.JFrame {
 //        
 //         jTextField1.setText("LauraG@gmail.com");
 //        jPasswordField1.setText("Laura34*pass");
+//          jTextField1.setText("JoseG@gmail.com");
+//          jPasswordField1.setText("Secure@12J3");
+
     }
 
 //   private void acceder() {

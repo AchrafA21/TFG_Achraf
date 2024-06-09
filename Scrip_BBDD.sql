@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS trabajadores (
     nombre VARCHAR(255) NOT NULL,
     correo VARCHAR(255) NOT NULL,
     contraseña VARCHAR(255) NOT NULL,
-    fecha_nac DATE NOT NULL
+    fecha_nac VARCHAR(255) NOT NULL
 );
 
 
@@ -54,9 +54,21 @@ CREATE TABLE IF NOT EXISTS reserva (
     id_cliente INT NOT NULL,
     id_vehiculo INT NOT NULL,
     id_modelo   INT NOT NULL, 
-    fecha_recogida INT NOT NULL,
-    fecha_devolucion INT NOT NULL
+    fecha_recogida DATE NOT NULL,
+    fecha_devolucion DATE NOT NULL,
+    id_trabajador int NOT NULL
 );
+
+INSERT INTO reserva (id_cliente, id_modelo, id_vehiculo,id_trabajador, fecha_recogida, fecha_devolucion) VALUES 
+(0, 66, 2,1, '2024-06-01', '2024-06-15'),
+(1, 33, 3, 2,'2024-06-10', '2024-06-20'),
+(2, 97, 4, 4,'2024-07-01', '2024-07-10'),
+(3, 44, 5, 5,'2024-07-15', '2024-07-25'),
+(4, 43, 6, 6,'2024-08-01', '2024-08-15'),
+(5, 23, 1, 3,'2024-08-10', '2024-08-20'),
+(6, 96, 4, 6,'2024-09-01', '2024-09-10'),
+(7, 91, 4, 9,'2024-09-15', '2024-09-25'),
+(8, 39, 10, 5,'2024-10-01', '2024-10-10');
 
 
 -- Ejemplo de inserción de datos de prueba
@@ -113,27 +125,29 @@ VALUES ('Ana', 'Martinez', 'AnaMart@gmail.com', 'Pass@1234', '1985-03-22', 'Av. 
 ----------------------------------------------------------------
 INSERT INTO Modelo (nombre, fecha_creacion, id_vehiculo)
 VALUES 
-('Golf Mk1', '1974-05-29', 1),
-('Golf Mk2', '1983-09-05', 1),
-('Golf Mk3', '1991-08-01', 1),
-('Golf Mk4', '1997-09-12', 1),
-('Golf Mk5', '2003-10-19', 1),
-('Golf Mk6', '2008-10-06', 1),
-('Golf Mk7', '2012-11-04', 1),
-('Golf Mk8', '2019-10-24', 1),
-('Golf GTI Mk1', '1976-06-14', 1),
-('Golf GTI Mk2', '1984-09-01', 1),
-('Golf GTI Mk3', '1991-11-08', 1),
-('Golf GTI Mk4', '1998-10-08', 1),
-('Golf GTI Mk5', '2004-03-25', 1),
-('Golf GTI Mk6', '2009-04-01', 1),
-('Golf GTI Mk7', '2013-05-10', 1),
-('Golf GTI Mk8', '2020-02-27', 1),
-('Golf R Mk4', '2002-05-01', 1),
-('Golf R Mk5', '2007-09-12', 1),
-('Golf R Mk6', '2010-07-15', 1),
-('Golf R Mk7', '2014-08-27', 1)
-('GTD', '2023-06-20', 1);
+('Mk1', '1974-05-29', 1),
+('Mk2', '1983-09-05', 1),
+('Mk3', '1991-08-01', 1),
+('Mk4', '1997-09-12', 1),
+('Mk5', '2003-10-19', 1),
+('Mk6', '2008-10-06', 1),
+('Mk7', '2012-11-04', 1),
+('Mk8', '2019-10-24', 1),
+('GTI Mk1', '1976-06-14', 1),
+('GTI Mk2', '1984-09-01', 1),
+('GTI Mk3', '1991-11-08', 1),
+('GTI Mk4', '1998-10-08', 1),
+('GTI Mk5', '2004-03-25', 1),
+('GTI Mk6', '2009-04-01', 1),
+('GTI Mk7', '2013-05-10', 1),
+('GTI Mk8', '2020-02-27', 1),
+('R Mk4', '2002-05-01', 1),
+('R Mk5', '2007-09-12', 1),
+('R Mk6', '2010-07-15', 1),
+('R Mk7', '2014-08-27', 1),
+('GTD', '2023-06-20', 1),
+('GTE', '2023-05-12', 1),
+('R', '2023-12-03', 1);
 
 INSERT INTO Modelo (nombre, fecha_creacion, id_vehiculo)
 VALUES 
@@ -273,16 +287,16 @@ VALUES
 ('Kia', 2006, 5, 'Gasolina', 'Manual', 70, 120, 40),
 ('Kia', 2005, 5, 'Gasolina', 'Manual', 75, 125, 41),
 ('Kia', 2004, 5, 'Gasolina', 'Manual', 80, 130, 42)
-('Volkswagen Golf Mk1', 1974, 5, 'Gasolina', 'Manual', 40, 80, 43),
-('Volkswagen Golf Mk2', 1983, 5, 'Gasolina', 'Manual', 45, 85, 44),
-('Volkswagen Golf Mk3', 1991, 5, 'Gasolina', 'Manual', 50, 90, 45),
-('Volkswagen Golf Mk4', 1997, 5, 'Gasolina', 'Manual', 55, 95, 46),
-('Volkswagen Golf Mk5', 2003, 5, 'Gasolina', 'Manual', 60, 100, 47),
-('Volkswagen Golf Mk6', 2008, 5, 'Gasolina', 'Manual', 65, 105, 48),
-('Volkswagen Golf Mk7', 2012, 5, 'Gasolina', 'Manual', 70, 110, 49),
-('Volkswagen Golf Mk8', 2019, 5, 'Gasolina', 'Manual', 75, 115, 50),
-('Volkswagen Golf GTI Mk1', 1976, 5, 'Gasolina', 'Manual', 80, 120, 51),
-('Volkswagen Golf GTI Mk2', 1984, 5, 'Gasolina', 'Manual', 'Manual',40,80,52);
+('Golf', 1974, 5, 'Gasolina', 'Manual', 40, 80, 43),
+('Golf', 1983, 5, 'Gasolina', 'Manual', 45, 85, 44),
+('Golf', 1991, 5, 'Gasolina', 'Manual', 50, 90, 45),
+('Golf', 1997, 5, 'Gasolina', 'Manual', 55, 95, 46),
+('Golf', 2003, 5, 'Gasolina', 'Manual', 60, 100, 47),
+('Golf', 2008, 5, 'Gasolina', 'Manual', 65, 105, 48),
+('Golf', 2012, 5, 'Gasolina', 'Manual', 70, 110, 49),
+('Golf', 2019, 5, 'Gasolina', 'Manual', 75, 115, 50),
+('Golf', 1976, 5, 'Gasolina', 'Manual', 80, 120, 51),
+('Golf', 1984, 5, 'Gasolina', 'Manual', 'Manual',40,80,52);
 ('Tesla', 2012, 5, 'Eléctrico', 'Automático', 100, 300, 63),
 ('Tesla', 2015, 7, 'Eléctrico', 'Automático', 120, 360, 64),
 ('Tesla', 2017, 5, 'Eléctrico', 'Automático', 80, 240, 65),

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<index version="1.0">
+ <indexitem text="Principal" target="primero" />
+  <indexitem text="Manual de uso  " target="Manual de uso" />
+  <indexitem text="Acerca de" target="acerca" />
+</index> 
+

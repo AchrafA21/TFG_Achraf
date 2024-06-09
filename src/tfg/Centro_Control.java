@@ -119,6 +119,7 @@ private String nombreUsuario;
         });
         jMenu2.add(jMenuItem7);
 
+        jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/management_settings_icon_152229.png"))); // NOI18N
         jMenuItem10.setText("Gestion Vehiculos");
         jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,6 +128,7 @@ private String nombreUsuario;
         });
         jMenu2.add(jMenuItem10);
 
+        jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/car_transport_vehicle_icon_123456.png"))); // NOI18N
         jMenuItem9.setText("Añadir Modelo");
         jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,6 +137,7 @@ private String nombreUsuario;
         });
         jMenu2.add(jMenuItem9);
 
+        jMenuItem11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1486504337-car-transportation-transport-travel-vehicle_81301.png"))); // NOI18N
         jMenuItem11.setText("Gestion Modelos");
         jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -148,6 +151,7 @@ private String nombreUsuario;
         jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/calendar-check_icon-icons.com_56836.png"))); // NOI18N
         jMenu5.setText("Reservas");
 
+        jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/process_events_icon_149896.png"))); // NOI18N
         jMenuItem8.setText("Gestión Reservas");
         jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,6 +160,7 @@ private String nombreUsuario;
         });
         jMenu5.add(jMenuItem8);
 
+        jMenuItem12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/eventcalendarsymbolofemptypage_87782.png"))); // NOI18N
         jMenuItem12.setText("Añadir reserva");
         jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -232,30 +237,13 @@ private String nombreUsuario;
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-       Modificar_datos b = new Modificar_datos();
+       Modificar_datos b = new Modificar_datos(nombreUsuario);
        b.setVisible(true);
        b.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-//       String rutaArchivoHTML = "C:/Users/Imad/Documents/NetBeansProjects/TFG/src/tfg/Panel_Cliente.html";
-//
-//    // Verifica si Desktop está soportado en el sistema actual
-//    if (Desktop.isDesktopSupported()) {
-//        Desktop desktop = Desktop.getDesktop();
-//        File archivoHTML = new File(rutaArchivoHTML);
-//        if (archivoHTML.exists()) {
-//            try {
-//                desktop.open(archivoHTML);
-//            } catch (IOException ex) {
-//                Logger.getLogger(Centro_Control.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        } else {
-//            System.out.println("El archivo HTML no existe.");
-//        }
-//    } else {
-//        System.out.println("El soporte de Desktop no está disponible en este sistema.");
-//    }
+        dispose();
 
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 

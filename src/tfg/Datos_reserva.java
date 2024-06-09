@@ -161,7 +161,7 @@ public void editar() {
         añadirReservaFrame.setVisible(true);
         añadirReservaFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        // Actualizar la tabla después de cerrar el formulario de edición
+        
         añadirReservaFrame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {

@@ -97,7 +97,6 @@ public class Inicio extends javax.swing.JFrame {
 
     try {
         conet = con1.getConnection();
-
         if (conet != null) {
             String sqlTrabajador = "SELECT * FROM trabajadores WHERE correo = ? AND contraseña = ?";
             String sqlCliente = "SELECT * FROM alquiler_clientes WHERE correo = ? AND contraseña = ?";
